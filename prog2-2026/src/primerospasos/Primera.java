@@ -1,7 +1,5 @@
 package primerospasos;
 
-import java.util.Iterator;
-
 public class Primera {
 	public static void main(String[] args) {
 		String frase = "En un lugar de La Mancha";

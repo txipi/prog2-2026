@@ -1,5 +1,7 @@
 package poo;
 
+import java.util.ArrayList;
+
 public class Principal {
 
 	public static void main(String[] args) {
@@ -24,6 +26,22 @@ public class Principal {
 		agenda1.setNombre("personal");
 		agenda1.getContactos().add(contacto1);
 		System.out.println(agenda1);
+		
+		Superheroe super1 = new Superheroe();
+		ArrayList<String> poderesIronman = new ArrayList<String>();
+		poderesIronman.add("Dinero");
+		poderesIronman.add("Inteligencia");
+		poderesIronman.add("Volar");
+		Superheroe ironman = new Superheroe("Ironman", false, poderesIronman, "Marvel", 2008, "masculino", 70, true);
+		Superheroe ironwoman = new Superheroe(ironman);
+		ironwoman.setNombre("Ironwoman");
+		ironwoman.setGenero("femenino");
+		ironwoman.getPoderes().add("Empatía");
+		
+		System.out.println(super1);
+		System.out.println(ironman);
+		System.out.println(ironwoman);
+		
 	}
 
 }

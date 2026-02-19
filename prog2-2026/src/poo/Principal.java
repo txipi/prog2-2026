@@ -28,6 +28,7 @@ public class Principal {
 		System.out.println(agenda1);
 		
 		Superheroe super1 = new Superheroe();
+		Superheroe super2 = new Superheroe();
 		ArrayList<String> poderesIronman = new ArrayList<String>();
 		poderesIronman.add("Dinero");
 		poderesIronman.add("Inteligencia");
@@ -39,6 +40,7 @@ public class Principal {
 		ironwoman.getPoderes().add("Empatía");
 		
 		System.out.println(super1);
+		System.out.println(super1 == super2);
 		System.out.println(ironman);
 		System.out.println(ironwoman);
 		

@@ -1,7 +1,10 @@
 package poo;
 
 public class Circulo {
-	// Propiedades 
+	// Propiedades globales (static) para TODOS los circulos en su conjunto
+	private static int contador = 0;
+	
+	// Propiedades de cada circulo
 	private double radio;
 	private String color;
 	
@@ -10,12 +13,22 @@ public class Circulo {
 		super();
 		this.radio = radio;
 		this.color = color;
+		Circulo.contador++;
 	}
 	
 	public Circulo() {
 		super();
 		this.radio = 1.0;
 		this.color = "red";
+		Circulo.contador++;
+	}
+	
+	public static int getContador() {
+		return contador;
+	}
+
+	public static void setContador(int contador) {
+		Circulo.contador = contador;
 	}
 
 	public double getRadio() {

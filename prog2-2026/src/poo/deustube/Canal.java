@@ -31,4 +31,52 @@ public class Canal {
 		this.seguidores = new ArrayList<String>(c.seguidores);
 		this.videos = new ArrayList<Video>(c.videos);
 	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public ArrayList<String> getSeguidores() {
+		return seguidores;
+	}
+
+	public void setSeguidores(ArrayList<String> seguidores) {
+		this.seguidores = seguidores;
+	}
+
+	public ArrayList<Video> getVideos() {
+		return videos;
+	}
+
+	public void setVideos(ArrayList<Video> videos) {
+		this.videos = videos;
+	}
+	
+	public int getNumeroSeguidores() {
+		return this.seguidores.size();
+	}
+	
+	public int getNumeroVideos() {
+		return this.videos.size();
+	}
+
+	@Override
+	public String toString() {
+		return "http://deustube.com/" + usuario + " (" + 
+				getNumeroVideos() + " videos, " + 
+				getNumeroSeguidores() + " seguidosres)";
+	}
+		
 }

@@ -76,7 +76,7 @@ public class Video {
 
 	@Override
 	public String toString() {
-		return "http://deustube.com" + id;
+		return "http://deustube.com/" + id;
 	}
 	
 }

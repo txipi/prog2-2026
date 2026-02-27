@@ -45,5 +45,9 @@ public class Rectangulo extends Forma {
 		return "Rectangulo [altura=" + altura + ", anchura=" + anchura + ", x=" + x + ", y=" + y + ", color=" + color
 				+ "]";
 	}
+
+	public double getArea() {
+		return altura * anchura;
+	}
 	
 }

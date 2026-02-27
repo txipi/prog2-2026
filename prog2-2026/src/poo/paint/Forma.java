@@ -2,7 +2,7 @@ package poo.paint;
 
 import java.awt.Color;
 
-public class Forma {
+public abstract class Forma {
 	protected int x;
 	protected int y;
 	protected Color color;
@@ -57,5 +57,22 @@ public class Forma {
 		return "Forma [x=" + x + ", y=" + y + ", color=" + color + "]";
 	}
 	
-	
+	// Este método abstracto OBLIGA a las clases hijas a implementarlo
+	public abstract double getArea();
+
+	//	public double getArea() {
+//		double area = 0.0;
+//		
+//		// MALA PRÁCTICA: estamos acoplando demasiado a Forma con sus hijas
+//		
+//		if (this instanceof Circulo) {
+//			// Calculamos el area del circulo
+//		} else if (this instanceof Rectangulo) {
+//			// Calculamos el area del rectangulo
+//		} else {
+//			// Calculamos el area del triangulo
+//		}
+//		 
+//		return area;
+//	}
 }

@@ -46,6 +46,8 @@ public class Triangulo extends Forma {
 				+ "]";
 	}
 	
-	
+	public double getArea() {
+		return altura * anchura / 2;
+	}	
 	
 }

@@ -33,4 +33,8 @@ public class Circulo extends Forma {
 		return "Circulo [radio=" + radio + ", x=" + x + ", y=" + y + ", color=" + color + "]";
 	}	
 	
+	public double getArea() {
+		return radio * radio * Math.PI;
+	}
+	
 }

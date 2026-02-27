@@ -96,6 +96,14 @@ public class Dibujo {
 				+ ", altura=" + altura + ", anchura=" + anchura + "]";
 	}
 
-	
+	public double getAreaFormas() {
+		double area = 0.0;
+		
+		for (Forma forma : formas) {
+			area += forma.getArea();
+		}
+		
+		return area;
+	}
 	
 }

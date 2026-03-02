@@ -48,6 +48,11 @@ public class Triangulo extends Forma {
 	
 	public double getArea() {
 		return altura * anchura / 2;
+	}
+
+	@Override
+	public void dibujar() {
+		System.out.println("Dibujamos un triángulo " + this);
 	}	
 	
 }

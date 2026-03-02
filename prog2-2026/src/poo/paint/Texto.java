@@ -2,7 +2,7 @@ package poo.paint;
 
 import java.awt.Color;
 
-public class Texto {
+public class Texto implements Imprimible, Dibujable {
 	protected int x;
 	protected int y;
 	protected Color color;
@@ -68,6 +68,14 @@ public class Texto {
 	public String toString() {
 		return "Texto [x=" + x + ", y=" + y + ", color=" + color + ", texto=" + texto + "]";
 	}
-	
+
+	public void imprimir() {
+		System.out.println(texto);
+	}
+
+	@Override
+	public void dibujar() {
+		System.out.println("Dibujamos el texto " + texto);
+	}	
 	
 }

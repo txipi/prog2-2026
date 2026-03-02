@@ -49,5 +49,10 @@ public class Rectangulo extends Forma {
 	public double getArea() {
 		return altura * anchura;
 	}
+
+	@Override
+	public void dibujar() {
+		System.out.println("Dibujamos un rectángulo " + this);
+	}
 	
 }

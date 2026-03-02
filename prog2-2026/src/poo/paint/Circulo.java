@@ -36,5 +36,10 @@ public class Circulo extends Forma {
 	public double getArea() {
 		return radio * radio * Math.PI;
 	}
+
+	@Override
+	public void dibujar() {
+		System.out.println("Dibujamos el círculo " + this);
+	}
 	
 }

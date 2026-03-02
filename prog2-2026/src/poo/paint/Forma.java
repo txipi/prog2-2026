@@ -2,7 +2,7 @@ package poo.paint;
 
 import java.awt.Color;
 
-public abstract class Forma {
+public abstract class Forma implements Dibujable {
 	protected int x;
 	protected int y;
 	protected Color color;

@@ -56,6 +56,43 @@ public class DeustoAir {
 		return vuelos;
 	}
 	
+	/*
+	 * buscarVuelosOrigen: método estático que recibe una lista de vuelos y un aeropuerto y devuelve
+	 * una lista vuelos con los vuelos que tengan como origen el aeropuerto que nos han pasado 
+	 */
+	public static ArrayList<Vuelo> buscarVuelosOrigen (ArrayList<Vuelo> vuelos, Aeropuerto aeropuerto) {
+		ArrayList<Vuelo> resultado = new ArrayList<Vuelo>();
+
+		for (Vuelo vuelo : vuelos) {
+			if (vuelo.getOrigen().equals(aeropuerto)) {
+				resultado.add(vuelo);
+			}
+		}
+		
+		return resultado;
+	}
+	
+	/*
+	 * buscarVuelosAeronave: método estático que recibe una lista de vuelos y una aeronave y devuelve
+	 * una lista vuelos con los vuelos que tengan la aeronave que nos han pasado 
+	 */
+	
+	/*
+	 * mayorAeronave: método estático que recibe una lista de vuelos y devuelve
+	 * la aeronave que más se ha utilizado en todos esos vuelos
+	 */
+
+	/*
+	 * mostrarEstadisticas: método estático que recibe una lista de vuelos y muestra por pantalla
+	 * (no devuelve nada) la siguiente información:
+	 * - Aeronave X: 3 vuelos.
+	 * - Aeronave Y: 2 vuelos.
+	 * - Aeronave Z: 3 vuelos.
+	 * - Aeronave W: 2 vuelos.
+	 * ...
+	 */
+
+	
 	public static void main(String[] args) {
 		ArrayList<Aeronave> flota = new ArrayList<Aeronave>();
 

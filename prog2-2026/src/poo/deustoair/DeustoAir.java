@@ -1,9 +1,61 @@
 package poo.deustoair;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class DeustoAir {
 
+	/*
+	 * Método estático que recibe una lista de aeronaves, pasajeros y aeropuertos y
+	 * devuelve una lista de 20 vuelos, creados de la siguiente manera:
+	 * - El código será DEUS0, DEUS1, DEUS2...
+	 * - La hora será hoy (ahora).
+	 * - La aeronave será una aleatoria de entre las que tiene la lista de aeronaves.
+	 * - Los pasajeros serán 10 elegidos aleatoriamente de la lista de pasajeros.
+	 * - El origen del vuelo será un aeropuerto aleatorio de la lista de aeropuertos.
+	 * - El destino del vuelo será un aeropuerto aleatorio de la lista de aeropuertos (no puede ser el mismo que el origen).
+	 */
+	public static ArrayList<Vuelo> generarVuelos (ArrayList<Aeronave> flota, 
+			ArrayList<Pasajero> pasajeros, ArrayList<Aeropuerto> aeropuertos) {
+		ArrayList<Vuelo> vuelos = new ArrayList<Vuelo>();
+		
+		for (int i = 0; i < 20; i++) {
+			Vuelo vuelo = new Vuelo();
+			vuelo.setCodigo("DEUS"+i);
+			vuelo.setHora(LocalDate.now());
+			int aleatorio = (int) (Math.random() * flota.size());
+			vuelo.setAeronave(flota.get(aleatorio));
+			aleatorio = (int) (Math.random() * aeropuertos.size());
+			vuelo.setOrigen(aeropuertos.get(aleatorio));
+			aleatorio = (int) (Math.random() * aeropuertos.size());
+			// En este caso valdría con aeropuertos.get(aleatorio) == vuelo.getOrigen() porque son los mismos aeropuertos
+			// pero vamos a comparar con equals porque son objetos y es mejor comparar objetos con equals:
+			// Aeropuerto origen = vuelo.getOrigen();
+			// Aeropuerto destino = aeropuertos.get(aleatorio);
+			// while ( origen.equals(destino) ) {...}
+			while (aeropuertos.get(aleatorio).equals(vuelo.getOrigen())) {
+				// Coinciden origen y destino, hay que buscar otro destino
+				aleatorio = (int) (Math.random() * aeropuertos.size());
+			}
+			vuelo.setDestino(aeropuertos.get(aleatorio));
+			
+			for (int j = 0; j < 10; j++) {
+				aleatorio = (int) (Math.random() * pasajeros.size());
+				// Si la lista de pasajeros de este vuelo (vuelos.getPasajeros()) contiene
+				// el pasajero de la posicion "aleatorio" de la lista de pasajeros, no nos vale porque ya estaba
+				while (vuelo.getPasajeros().contains(pasajeros.get(aleatorio))) {
+					aleatorio = (int) (Math.random() * pasajeros.size());
+				}
+				Pasajero pasajero = pasajeros.get(aleatorio);
+				vuelo.getPasajeros().add(pasajero);
+			}
+			
+			vuelos.add(vuelo);
+		}
+		
+		return vuelos;
+	}
+	
 	public static void main(String[] args) {
 		ArrayList<Aeronave> flota = new ArrayList<Aeronave>();
 
@@ -53,7 +105,6 @@ public class DeustoAir {
 		        new SalaVIP(true, 20, new ArrayList<Pasajero>()))); // Málaga
 		aeropuertos.add(new Aeropuerto(39.4893, -0.4816, "VLC", 2,
 		        new SalaVIP(true, 20, new ArrayList<Pasajero>()))); // Valencia
-
 		aeropuertos.add(new Aeropuerto(51.4700, -0.4543, "LHR", 2,
 		        new SalaVIP(true, 20, new ArrayList<Pasajero>()))); // Londres Heathrow
 		aeropuertos.add(new Aeropuerto(48.3538, 11.7861, "MUC", 2,
@@ -84,6 +135,11 @@ public class DeustoAir {
 		        new SalaVIP(true, 20, new ArrayList<Pasajero>()))); // Ciudad de México
 		aeropuertos.add(new Aeropuerto(37.4602, 126.4407, "ICN", 3,
 		        new SalaVIP(true, 20, new ArrayList<Pasajero>()))); // Seúl Incheon
+		
+		ArrayList<Vuelo> vuelos = generarVuelos(flota, pasajeros, aeropuertos);
+		
+		System.out.println(vuelos);
+		
 	}
 
 }

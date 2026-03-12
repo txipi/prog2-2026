@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Actividad {
+public class Actividad implements Comparable<Actividad> {
 	protected String descripcion;
 	protected LocalDateTime fecha;
 	protected ArrayList<String> asistentes; // lista con los DNIs de los asistentes
@@ -69,6 +69,13 @@ public class Actividad {
 	@Override
 	public String toString() {
 		return descripcion + "(fecha: " + DateTimeFormatter.ISO_DATE.format(fecha) + "), asistentes: " + asistentes.size();
+	}
+
+	@Override
+	public int compareTo(Actividad other) {
+		// Permite ordenar las actividades en función de cuántos asistentes tienen
+		// Como other va antes, ordena de mayor a menor
+		return other.asistentes.size() - this.asistentes.size();
 	}
 	
 }

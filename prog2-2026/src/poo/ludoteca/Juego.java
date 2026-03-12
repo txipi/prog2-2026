@@ -2,7 +2,7 @@ package poo.ludoteca;
 
 import java.util.Objects;
 
-public class Juego extends Recurso {
+public class Juego extends Recurso implements Comparable<Juego> {
 	protected String titulo;
 	protected double duracion;
 	protected int edad;
@@ -66,6 +66,28 @@ public class Juego extends Recurso {
 	@Override
 	public String toString() {
 		return "Juego [titulo=" + titulo + ", duracion=" + duracion + ", edad=" + edad + "]";
+	}
+
+	@Override
+	public boolean esFamiliar() {
+		if (this.edad < 10) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public int compareTo(Juego other) {
+		return this.edad - other.edad;
+//		return this.titulo.compareTo(other.titulo);
+//		if (this.edad < other.edad) {
+//			return -1;
+//		} else if (this.edad > other.edad) {
+//			return 1;
+//		} else {
+//			return 0;
+//		}
 	}
 	
 }

@@ -55,5 +55,14 @@ public class Videoconsola extends Recurso {
 	public String toString() {
 		return "Videoconsola [marca=" + marca + ", modelo=" + modelo + "]";
 	}
+
+	@Override
+	public boolean esFamiliar() {
+		if (this.marca.equals("Nintendo")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 }

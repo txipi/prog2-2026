@@ -3,8 +3,39 @@ package poo.ludoteca;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class Ludoteca {
+	
+	public static Actividad actividadMasPopular(ArrayList<Actividad> actividades) {
+		Actividad mayor = actividades.get(0);
+		
+		for (Actividad actividad : actividades) {
+			if (actividad.getAsistentes().size() > mayor.getAsistentes().size()) {
+				mayor = actividad;
+			}
+		}
+		
+		return mayor;
+	}
+	
+	public static Actividad actividadMasPopular2(ArrayList<Actividad> actividades) {
+		Collections.sort(actividades);
+		return actividades.get(0);
+	}
+	
+	public static ArrayList<Recurso> recursosReservables(ArrayList<Recurso> recursos) {
+		ArrayList<Recurso> lista = new ArrayList<Recurso>();
+		
+		for (Recurso recurso : recursos) {
+			if (recurso instanceof Libro) {
+				lista.add(recurso);
+			}
+		}
+		
+		return lista;
+	}
+	 
 	public static void main(String[] args) {
 		// Lista de recursos de la ludoteca
 		ArrayList<Recurso> recursos = new ArrayList<Recurso>(Arrays.asList(

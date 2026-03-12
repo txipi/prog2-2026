@@ -1,6 +1,6 @@
 package poo.ludoteca;
 
-public class Recurso {
+public abstract class Recurso {
 	
 	protected static int contador = 1;
 	
@@ -11,6 +11,8 @@ public class Recurso {
 		this.codigo = Recurso.contador;
 		Recurso.contador++;
 	}
+	
+	public abstract boolean esFamiliar();
 
 	@Override
 	public String toString() {

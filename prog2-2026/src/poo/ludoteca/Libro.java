@@ -79,5 +79,14 @@ public class Libro extends Recurso {
 		return "Libro [titulo=" + titulo + ", autoria=" + autoria + ", genero=" + genero + ", reservado=" + reservado
 				+ "]";
 	}
+
+	@Override
+	public boolean esFamiliar() {
+		if (this.genero.equals("humor")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 }

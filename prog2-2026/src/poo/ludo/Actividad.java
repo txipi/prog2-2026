@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Actividad implements Reservable {
 	protected String descripcion;
-	protected String tipo;
+	protected TipoActividad tipo;
 	protected LocalDate fecha;
 	protected Trabajadora trabajadora;
 	protected ArrayList<Usuaria> asistentes;

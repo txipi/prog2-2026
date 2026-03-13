@@ -40,8 +40,7 @@ public class Avioneta extends Transporte {
 
 	@Override
 	public double getPrecioPorKm() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.peso / this.planeo;
 	}
 	
 }

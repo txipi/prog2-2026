@@ -61,14 +61,13 @@ public class Guia implements Cobrable {
 
 	@Override
 	public double calcularCoste() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.personas * this.precio;
 	}
 
 	@Override
 	public boolean cobrar() {
-		// TODO Auto-generated method stub
-		return false;
+		this.pagada = true;
+		return true;
 	}
 	
 }

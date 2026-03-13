@@ -1,8 +1,9 @@
 package poo.deustotravel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class Excursion implements Cobrable {
+public class Excursion implements Cobrable, Comparable<Excursion> {
 	protected String nombre;
 	protected ArrayList<Trayecto> trayectos;
 	protected boolean pagada;
@@ -52,14 +53,44 @@ public class Excursion implements Cobrable {
 
 	@Override
 	public double calcularCoste() {
-		// TODO Auto-generated method stub
-		return 0;
+		// Sumar el coste de todos sus trayectos (distancia x getPrecioPorKm() del transporte usado)
+		double total = 0;
+		
+		for (Trayecto trayecto : trayectos) {
+			Transporte transporte = trayecto.getTransporte();
+			total += trayecto.getDistancia() * transporte.getPrecioPorKm();
+		}
+		
+		return total;
 	}
 
 	@Override
 	public boolean cobrar() {
-		// TODO Auto-generated method stub
-		return false;
+		this.pagada = true;
+		return true;
+	}
+	
+	public static Excursion getExcursionMasCara(ArrayList<Excursion> excursiones) {
+		Excursion mayor = excursiones.get(0);
+		
+		for (Excursion excursion : excursiones) {
+			if (excursion.calcularCoste() > mayor.calcularCoste()) {
+				mayor = excursion;
+			}
+		}
+		
+		return mayor;
+	}
+
+	public static Excursion getExcursionMasCara2(ArrayList<Excursion> excursiones) {
+		Collections.sort(excursiones);
+		return excursiones.get(0);
+	}
+
+	
+	@Override
+	public int compareTo(Excursion other) {
+		return (int) (other.calcularCoste() - this.calcularCoste());
 	}
 	
 }

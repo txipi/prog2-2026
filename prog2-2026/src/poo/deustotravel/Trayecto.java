@@ -34,7 +34,9 @@ public class Trayecto {
 	}
 
 	public void setLatOrigen(double latOrigen) {
-		this.latOrigen = latOrigen;
+		if (latOrigen >= -90.0 && latOrigen <= 90.0) {
+			this.latOrigen = latOrigen;
+		}
 	}
 
 	public double getLongOrigen() {

@@ -113,6 +113,8 @@ public class DeustoTravel {
         System.out.println(transportes);
         
         System.out.println(guias);
+        
+        System.out.println(Excursion.getExcursionMasCara(excursiones));
 	}
 
 }

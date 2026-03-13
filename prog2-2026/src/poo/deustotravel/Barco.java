@@ -40,8 +40,11 @@ public class Barco extends Transporte {
 
 	@Override
 	public double getPrecioPorKm() {
-		// TODO Auto-generated method stub
-		return 0;
+		if (this.diesel) {
+			return 0.8 * this.calado;
+		} else {
+			return 1.5 * this.calado;
+		}
 	}
 	
 }

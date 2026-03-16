@@ -1,6 +1,6 @@
 package poo.ski;
 
-public class Pista {
+public class Pista implements Comparable<Pista> {
 	protected static int contador = 1;
 	
 	protected int identificativo;
@@ -84,4 +84,14 @@ public class Pista {
 		return "Pista [identificativo=" + identificativo + ", cotaSuperior=" + cotaSuperior + ", cotaInferior="
 				+ cotaInferior + ", distancia=" + distancia + ", tipo=" + tipo + "]";
 	}
+	
+	public double getDesnivel() {
+		return this.cotaSuperior - this.cotaInferior;
+	}
+
+	@Override
+	public int compareTo(Pista other) {
+		return (int) (this.getDesnivel() - other.getDesnivel());
+	}
+
 }

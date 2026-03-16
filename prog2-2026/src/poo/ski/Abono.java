@@ -2,7 +2,7 @@ package poo.ski;
 
 import java.time.LocalDate;
 
-public class Abono {
+public class Abono implements Comparable<Abono> {
 	protected String nombre;
 	protected String telefono;
 	protected LocalDate inicio;
@@ -71,6 +71,11 @@ public class Abono {
 	public String toString() {
 		return "Abono [nombre=" + nombre + ", telefono=" + telefono + ", inicio=" + inicio + ", fin=" + fin
 				+ ", pagado=" + pagado + "]";
+	}
+
+	@Override
+	public int compareTo(Abono other) {
+		return this.getFin().compareTo(other.getFin());
 	}
 
 }

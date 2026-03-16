@@ -2,6 +2,8 @@ package poo.ski;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 
 /*
  * Métodos estáticos:
@@ -12,15 +14,119 @@ import java.util.ArrayList;
  * Obtener todas las pistas de un tipo
  * Coste total de los abonos
  * Porcentaje de abonos pagados
- * Obtener abonos activos hoy
  * Ordenar pistas por desnivel
  * Ordenar abonos por fecha de fin
+ * Obtener abonos activos hoy
  * Buscar movilidad que conecte dos pistas
- * Buscar ruta que vaya de una pista a otra
  */
 
 public class Estacion {
-
+	
+	public static Movilidad buscarMovilidad(ArrayList<Movilidad> movilidades, Pista a, Pista b) {
+		Movilidad encontrado = null;
+		
+		for (Movilidad movilidad : movilidades) {
+			if (movilidad.getPistaInicio() == a.getIdentificativo() && movilidad.getPistaFin() == b.getIdentificativo()) {
+				encontrado = movilidad;
+				break;
+			}
+		}
+		
+		return encontrado;
+	}
+	
+	public static ArrayList<Abono> abonosActivosHoy(ArrayList<Abono> abonos) {
+		ArrayList<Abono> lista = new ArrayList<Abono>();
+		
+		LocalDate hoy = LocalDate.now();
+		
+		for (Abono abono : abonos) {
+			if (abono.getInicio().isBefore(hoy) && abono.getFin().isAfter(hoy)) {
+				lista.add(abono);
+			}
+		}
+		
+		return lista;
+	}
+	
+	public static double porcentajeAbonosPagados(ArrayList<Abono> abonos) {
+		int contador = 0;
+		
+		for (Abono abono : abonos) {
+			if (abono.isPagado()) {
+				contador++;
+			}
+		}
+		
+		return 100 * contador / abonos.size();
+	}
+	
+	public static double costeTotalAbonos(ArrayList<Abono> abonos) {
+		// Abono normal -> 50
+		// Infantil -> 0
+		// Senior -> 30
+		double total = 0;
+		
+		for (Abono abono : abonos) {
+			if (abono instanceof Infantil) {
+				total += 0;
+			} else if (abono instanceof Senior) {
+				total += 30;
+			} else {
+				total += 50;
+			}
+		}
+		
+		return total;
+	}
+	
+	public static ArrayList<Pista> obtenerPistasTipo(ArrayList<Pista> pistas, TipoPista tipo) {
+		ArrayList<Pista> lista = new ArrayList<Pista>();
+		
+		for (Pista pista : pistas) {
+			if (pista.getTipo().equals(tipo)) {
+				lista.add(pista);
+			}
+		}
+		
+		return lista;
+	}
+	
+	public static Pista mayorDistanciaEsquiable(ArrayList<Pista> pistas) {
+		Pista mayor = pistas.get(0);
+		
+		for (Pista pista : pistas) {
+			if (pista.getDistancia() > mayor.getDistancia()) {
+				mayor = pista;
+			}
+		}
+		
+		return mayor;
+	}
+	
+	public static double distanciaTotalRemontes(ArrayList<Movilidad> movilidades) {
+		double total = 0;
+		
+		for (Movilidad movilidad : movilidades) {
+			if (movilidad instanceof Remonte) {
+				total += movilidad.getDistancia();
+			}
+		}
+		
+		return total;
+	}
+	
+	public static double desnivelTotal(ArrayList<Pista> pistas) {
+		double total = 0;
+		
+		for (Pista pista : pistas) {
+			double desnivel = pista.getCotaSuperior() - pista.getCotaInferior();
+			total += desnivel;
+		}
+		
+		return total;
+	}
+	
 	public static void main(String[] args) {
 		// =========================
 		// CREACIÓN DE PISTAS
@@ -116,8 +222,9 @@ public class Estacion {
 		for (Abono a : abonos)
 			System.out.println(a);
 
-		
+		Collections.sort(pistas);
 
+		Collections.sort(abonos);
 	}
 
 }

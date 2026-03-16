@@ -8,9 +8,15 @@ import java.util.ArrayList;
  * 
  * Calcular desnivel total esquiable de la estación
  * Calcular distancia total de remontes
- * Contar pistas por tipo
+ * Obtener la pista con mayor distancia esquiable
+ * Obtener todas las pistas de un tipo
+ * Coste total de los abonos
+ * Porcentaje de abonos pagados
  * Obtener abonos activos hoy
- * 
+ * Ordenar pistas por desnivel
+ * Ordenar abonos por fecha de fin
+ * Buscar movilidad que conecte dos pistas
+ * Buscar ruta que vaya de una pista a otra
  */
 
 public class Estacion {

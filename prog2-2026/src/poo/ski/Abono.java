@@ -2,7 +2,7 @@ package poo.ski;
 
 import java.time.LocalDate;
 
-public class Abono implements Comparable<Abono> {
+public class Abono implements Comparable<Abono>, Cobrable {
 	protected String nombre;
 	protected String telefono;
 	protected LocalDate inicio;
@@ -76,6 +76,26 @@ public class Abono implements Comparable<Abono> {
 	@Override
 	public int compareTo(Abono other) {
 		return this.getFin().compareTo(other.getFin());
+	}
+
+	@Override
+	public boolean cobro() {
+		if (this.pagado == false) {
+			this.pagado = true;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean devolucion() {
+		if (this.pagado == true) {
+			this.pagado = false;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

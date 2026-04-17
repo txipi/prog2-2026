@@ -1,10 +1,52 @@
 package collections.canciones;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.TreeSet;
 
 public class Principal {
+	
+	/*
+	 * Método que cuenta la duración total de cada canción en la lista de canciones
+	 */
+	public static HashMap<Cancion, Double> duracionPorCancion (ArrayList<Cancion> canciones) {
+		HashMap<Cancion, Double> mapa = new HashMap<Cancion, Double>();
+		
+		for (Cancion cancion : canciones) {
+			double duracion = cancion.getDuracion();
+			
+			// Si el contador no existía, lo creamos
+			if (!mapa.containsKey(cancion)) {
+				mapa.put(cancion, 0.0);
+			}
+			
+			// Actualizamos el valor asociado a esta clave sumando la duración de esta canción
+			double valor = mapa.get(cancion);
+			mapa.put(cancion, valor + duracion);
+		}
+		
+		return mapa;
+	}
+	
+	/*
+	 * Método que cuenta cuántas veces sale cada canción en la lista de canciones
+	 */
+	public static HashMap<Cancion, Integer> contarCanciones (ArrayList<Cancion> canciones) {
+		HashMap<Cancion, Integer> mapa = new HashMap<Cancion, Integer>();
+		
+		for (Cancion cancion : canciones) {
+			if (!mapa.containsKey(cancion)) {
+				mapa.put(cancion, 1);
+			} else {
+				int valor = mapa.get(cancion);
+				mapa.put(cancion, valor + 1);
+			}
+		}
+		
+		return mapa;	
+	}
+	
 	public static void main(String[] args) {
 		ArrayList<Cancion> canciones = new ArrayList<Cancion>();
 		HashSet<Cancion> conjunto = new HashSet<Cancion>();

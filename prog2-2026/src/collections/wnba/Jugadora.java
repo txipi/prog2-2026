@@ -1,8 +1,9 @@
 package collections.wnba;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Jugadora {
+public class Jugadora implements Serializable {
 	protected String nombre;
 	protected double altura;
 	protected Posicion posicion;

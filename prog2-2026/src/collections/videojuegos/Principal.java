@@ -1,8 +1,12 @@
 package collections.videojuegos;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+
+import collections.wnba.Jugadora;
 
 public class Principal {
 
@@ -90,6 +94,18 @@ public class Principal {
 		}
 		
 		return mapa;
+	}
+	
+	public static void guardarBinario(ArrayList<Videojuego> videojuegos) {
+		// fos -> oos -> writeObject
+		try {
+			FileOutputStream fos = new FileOutputStream("videojuegos.dat");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(videojuegos);
+			oos.close();
+		} catch (Exception e) {
+			System.out.println("Error: no hemos podido guardar los datos.");
+		}
 	}
 
 	public static void main(String[] args) {

@@ -1,12 +1,15 @@
 package collections.wnba;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Scanner;
 
 public class Principal {
 
@@ -53,6 +56,64 @@ public class Principal {
 		
 		// Guardar la lista de jugadoras en un fichero binario
 		guardarBinario(jugadoras);
+		
+		// Guardar la lista de jugadoras en un fichero CSV
+		guardarTexto(jugadoras);
+		
+		jugadoras = cargarTexto();
+	}
+
+	public static ArrayList<Jugadora> cargarTexto() {
+		// Formato de jugadoras CSV:
+		// nombre;altura;posicion;velocidad;fuerza;tiro;defensa
+
+		ArrayList<Jugadora> jugadoras = new ArrayList<Jugadora>();
+		
+		try {
+			File f = new File("jugadoras.csv");
+			Scanner sc = new Scanner(f);
+			while (sc.hasNextLine()) {
+				String linea = sc.nextLine();
+				String[] campos = linea.split(";");
+				String nombre = campos[0];
+				double altura = Double.parseDouble(campos[1]);
+				Posicion pos = Posicion.valueOf(campos[2]);
+				int vel = Integer.parseInt(campos[3]);
+				int fue = Integer.parseInt(campos[4]);
+				int tir = Integer.parseInt(campos[5]);
+				int def = Integer.parseInt(campos[6]);
+				Jugadora jugadora = new Jugadora(nombre, altura, pos, vel, fue, tir, def);
+				jugadoras.add(jugadora);
+			}
+			sc.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		
+		return jugadoras;
+	}
+
+
+
+	public static void guardarTexto(ArrayList<Jugadora> jugadoras) {
+		// Formato de jugadoras CSV:
+		// nombre;altura;posicion;velocidad;fuerza;tiro;defensa
+		try {
+			PrintWriter pw = new PrintWriter("jugadoras.csv");
+			for (Jugadora jugadora : jugadoras) {
+				pw.println(jugadora.getNombre()+";"+
+						jugadora.getAltura()+";"+
+						jugadora.getPosicion()+";"+
+						jugadora.getVelocidad()+";"+
+						jugadora.getFuerza()+";"+
+						jugadora.getTiro()+";"+
+						jugadora.getDefensa()+";");
+			}
+			pw.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 
 	public static void guardarBinario(ArrayList<Jugadora> jugadoras) {

@@ -47,6 +47,7 @@ public class Ficheros {
 			for (String palabra : palabras) {
 				pw.println(palabra);
 			}
+			pw.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}

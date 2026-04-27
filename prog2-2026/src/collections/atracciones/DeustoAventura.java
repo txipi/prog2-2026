@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
@@ -24,7 +25,7 @@ public class DeustoAventura {
 		ArrayList<Atraccion> atracciones = new ArrayList<Atraccion>(Arrays.asList(ats));
 
 		// EJERCICIO 1: Cargar lista de visitantes de DeustoAventura
-		ArrayList<Visitante> visitantes = cargaDatosVisitantes();
+		ArrayList<Visitante> visitantes = cargaDatosVisitantes2();
 		System.out.println(visitantes.size()); // debería mostrar 50
 		Collections.sort(visitantes);
 		System.out.println(visitantes); // debería mostrar la lista de visitantes ordenada por altura
@@ -45,7 +46,145 @@ public class DeustoAventura {
 		//simularComportamiento(visitantesPorAtraccion);
 		
 		// EXTRA: Simular el comportamiento de los visitantes teniendo en cuenta la duración de las atracciones
-		//simularComportamientoExtra(visitantesPorAtraccion);
+		simularComportamientoExtra(visitantesPorAtraccion);
+	}
+
+	public static void simularComportamientoExtra(HashMap<Atraccion, LinkedList<Visitante>> mapa) {
+		for (Atraccion clave : mapa.keySet()) {
+			LinkedList<Visitante> valor = mapa.get(clave);
+			int contador = 0;
+			System.out.println("Atracción " + clave.getNombre());
+			// Preparamos 3 sub-colas en función del tipo de entrada:
+			LinkedList<Visitante> colaNormal = new LinkedList<Visitante>(); 
+			LinkedList<Visitante> colaExpress = new LinkedList<Visitante>();
+			LinkedList<Visitante> colaVip = new LinkedList<Visitante>();
+			// Llenamos las sub-colas, vaciando la cola principal
+			while (!valor.isEmpty()) {
+				Visitante visitante = valor.removeFirst();
+				if (visitante.getEntrada().equals(Entrada.VIP)) {
+					colaVip.add(visitante);
+				} else if (visitante.getEntrada().equals(Entrada.EXPRESS)) {
+					colaExpress.add(visitante);
+				} else {
+					colaNormal.add(visitante);
+				}
+			}
+			// Vaciamos la cola VIP
+			while (!colaVip.isEmpty()) {
+				Visitante visitante = colaVip.removeFirst();
+				if (visitante.getAltura() >= clave.getAltura()) {
+					System.out.println("Entra el visitante " + visitante.getCodigo());
+					contador++;
+					if (contador >= clave.getCapacidad()) {
+						System.out.println("Siguiente turno");
+						contador = 0;
+					}
+				} else {
+					System.out.println(visitante.getCodigo() + " no puede entrar por falta de altura");
+				}
+			}
+			// Vaciamos la cola Express
+			while (!colaExpress.isEmpty()) {
+				Visitante visitante = colaExpress.removeFirst();
+				if (visitante.getAltura() >= clave.getAltura()) {
+					System.out.println("Entra el visitante " + visitante.getCodigo());
+					contador++;
+					if (contador >= clave.getCapacidad()) {
+						System.out.println("Siguiente turno");
+						contador = 0;
+					}
+				} else {
+					System.out.println(visitante.getCodigo() + " no puede entrar por falta de altura");
+				}
+			}
+			// Vaciamos la cola Normal
+			while (!colaNormal.isEmpty()) {
+				Visitante visitante = colaNormal.removeFirst();
+				if (visitante.getAltura() >= clave.getAltura()) {
+					System.out.println("Entra el visitante " + visitante.getCodigo());
+					contador++;
+					if (contador >= clave.getCapacidad()) {
+						System.out.println("Siguiente turno");
+						contador = 0;
+					}
+				} else {
+					System.out.println(visitante.getCodigo() + " no puede entrar por falta de altura");
+				}
+			}
+		}
+	}
+
+	public static void simularComportamientoExtraMejor(HashMap<Atraccion, LinkedList<Visitante>> mapa) {
+		for (Atraccion clave : mapa.keySet()) {
+			LinkedList<Visitante> valor = mapa.get(clave);
+			int contador = 0;
+			System.out.println("Atracción " + clave.getNombre());
+			// Preparamos 3 sub-colas en función del tipo de entrada:
+			HashMap<Entrada, LinkedList<Visitante>> colasPorEntrada = new HashMap<Entrada, LinkedList<Visitante>>();
+			for (Entrada entrada : Entrada.values()) {
+				colasPorEntrada.put(entrada, new LinkedList<Visitante>()); 
+			}
+			// Llenamos las sub-colas, vaciando la cola principal
+			while (!valor.isEmpty()) {
+				Visitante visitante = valor.removeFirst();
+				colasPorEntrada.get(visitante.getEntrada()).add(visitante);
+			}
+			for (Entrada entrada : Entrada.values()) {
+				LinkedList<Visitante> cola = colasPorEntrada.get(entrada);
+				// Vaciamos la cola
+				while (!cola.isEmpty()) {
+					Visitante visitante = cola.removeFirst();
+					if (visitante.getAltura() >= clave.getAltura()) {
+						System.out.println("Entra el visitante " + visitante.getCodigo());
+						contador++;
+						if (contador >= clave.getCapacidad()) {
+							System.out.println("Siguiente turno");
+							contador = 0;
+						}
+					} else {
+						System.out.println(visitante.getCodigo() + " no puede entrar por falta de altura");
+					}
+				}
+			}
+		}
+	}
+
+	
+	public static void simularComportamiento(HashMap<Atraccion, LinkedList<Visitante>> mapa) {
+		/* En Python se hacía así para recorrer un diccionario:
+		 * 
+		 * for clave in diccionario:
+		 *    valor = diccionario[clave]
+		 */
+		
+		for (Atraccion clave : mapa.keySet()) {
+			LinkedList<Visitante> valor = mapa.get(clave);
+			int contador = 0;
+			System.out.println("Atracción " + clave.getNombre());
+			//for (Visitante visitante : valor) {
+			while (!valor.isEmpty()) {
+				Visitante visitante = valor.removeFirst();
+				if (visitante.getAltura() >= clave.getAltura()) {
+					System.out.println("Entra el visitante " + visitante.getCodigo());
+					contador++;
+					if (contador >= clave.getCapacidad()) {
+						System.out.println("Siguiente turno");
+						contador = 0;
+					}
+				} else {
+					System.out.println(visitante.getCodigo() + " no puede entrar por falta de altura");
+				}
+			}
+		}
+		
+		/* Recorrer mapas con for-map:
+		 * 
+		 * for (Map.Entry<Atraccion, LinkedList<Visitante>> entry : mapa.entrySet()) {
+				Atraccion key = entry.getKey();
+				LinkedList<Visitante> val = entry.getValue();
+			}
+		 */
+		
 	}
 
 	public static HashMap<Atraccion, LinkedList<Visitante>> agruparVisitantes(ArrayList<Visitante> visitantes) {

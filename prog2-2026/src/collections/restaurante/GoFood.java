@@ -1,10 +1,11 @@
-package restaurante;
+package collections.restaurante;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -85,8 +86,23 @@ public class GoFood {
 			while (sc.hasNextLine()) {
 				String linea = sc.nextLine();
 				String[] campos = linea.split(",");
-				boolean llevar = false; // campos[0]
-				ArrayList<Ingrediente> lista = null; // campos[1].split(";")
+				boolean llevar = Boolean.parseBoolean(campos[0]);
+				ArrayList<Ingrediente> lista = new ArrayList<Ingrediente>(); // campos[1].split(";")
+				String[] nombres = campos[1].split(";");
+				for (String nombre : nombres) {
+					// Buscar el ingrediente que se llame así
+					Ingrediente ingrediente = null;
+					for (Ingrediente ing : this.listaIngredientes) {
+						if (ing.getNombre().equals(nombre)) {
+							ingrediente = ing;
+							break;
+						}
+					}
+					// añadirlo a la lista
+					if (ingrediente != null) {
+						lista.add(ingrediente);
+					}
+				}
 				Pedido pedido = new Pedido(llevar, lista);
 				this.listaPedidos.add(pedido);
 			}
@@ -95,5 +111,64 @@ public class GoFood {
 			System.out.println(e);
 		}
 	}
-	
+
+	public void generarClientes() {
+		ArrayList<Integer> pedidosUsados = new ArrayList<Integer>();
+		for (int i = 0; i < 25; i++) {
+			String nombre = "cliente" + (i+1);
+			String telefono = "+34844784525";
+			ArrayList<Integer> pedidos = new ArrayList<Integer>();
+			// Tenemos que elegir aleatoriamente 2 pedidos y meterlos en la lista
+			for (int j = 0; j < 2; j++) {
+				int alea = (int) (Math.random() * this.listaPedidos.size());
+				Pedido pedidoAleatorio = this.listaPedidos.get(alea);
+				
+				while (pedidosUsados.contains(pedidoAleatorio.getIdentificador())) {
+					alea = (int) (Math.random() * this.listaPedidos.size());
+					pedidoAleatorio = this.listaPedidos.get(alea);
+				}
+				
+				pedidos.add(pedidoAleatorio.getIdentificador());	
+				pedidosUsados.add(pedidoAleatorio.getIdentificador());	
+			}
+			Cliente cliente = new Cliente(nombre, telefono, pedidos);
+			this.listaClientes.add(cliente);
+		}
+	}
+
+	public ArrayList<Pedido> ordenarPedidos() {
+		// TODO Auto-generated method stub
+		ArrayList<Pedido> ordenada = new ArrayList<Pedido>(this.listaPedidos);
+		
+		// Si hacemos que Pedido sea Comparable: Collections.sort(ordenada);
+		ordenada.sort(new Comparator<Pedido>() {
+			@Override
+			public int compare(Pedido o1, Pedido o2) {
+				return Double.compare(o1.getTotal(), o2.getTotal());
+			}
+		});
+		
+		return ordenada;
+	}
+
+	public HashMap<String, ArrayList<Integer>> pedidosPorIngrediente() {
+		HashMap<String, ArrayList<Integer>> mapa = new HashMap<String, ArrayList<Integer>>();
+		
+		for (Pedido pedido : listaPedidos) {
+			for (Ingrediente ingrediente : pedido.getListaIngredientes()) {
+				String nombre = ingrediente.getNombre();
+				if (!mapa.containsKey(nombre)) {
+					mapa.put(nombre, new ArrayList<Integer>());
+				}
+				// Comprobar si ya existía este identificador en la lista
+				if (!mapa.get(nombre).contains(pedido.getIdentificador())) {
+					mapa.get(nombre).add(pedido.getIdentificador());
+				}
+			}
+		}
+		
+		return mapa;
+	}
+
+
 }

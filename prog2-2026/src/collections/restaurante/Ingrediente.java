@@ -1,4 +1,4 @@
-package restaurante;
+package collections.restaurante;
 
 public class Ingrediente {
 

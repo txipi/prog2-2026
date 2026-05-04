@@ -1,4 +1,4 @@
-package restaurante;
+package collections.restaurante;
 
 import java.util.ArrayList;
 
@@ -33,6 +33,17 @@ public class Pedido{
 	public int getIdentificador() {
 		return identificador;
 	}
+	
+	public double getTotal() {
+		double total = 0.0;
+		
+		for (Ingrediente ingrediente : listaIngredientes) {
+			total += ingrediente.getPrecio();
+		}
+		
+		return total;
+	}
+	
 	@Override
 	public String toString() {
 		return "Pedido [identificador=" + identificador + ", llevar=" + llevar + ", listaIngredientes="

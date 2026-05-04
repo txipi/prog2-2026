@@ -1,6 +1,8 @@
 package collections.ong;
 
-class Cooperante {
+import java.io.Serializable;
+
+class Cooperante implements Serializable {
 
     private String dni;
     private String nombre;

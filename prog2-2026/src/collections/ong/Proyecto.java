@@ -1,8 +1,9 @@
 package collections.ong;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-class Proyecto {
+class Proyecto implements Serializable {
 
     private String nombre;
     private String pais;

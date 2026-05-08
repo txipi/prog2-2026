@@ -33,5 +33,13 @@ public class Agenda {
 		return "Agenda [nombre=" + nombre + ", contactos=" + contactos + "]";
 	}
 	
-	
+	public double getTotal() {
+		double total = 0.0;
+		
+		for (Contacto contacto : contactos) {
+			total += contacto.getSaldo();
+		}
+		
+		return total;
+	}
 }

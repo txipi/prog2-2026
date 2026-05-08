@@ -14,6 +14,9 @@ public class Fraccion implements Comparable<Fraccion> {
 	 */
 	public Fraccion(int num, int den) throws ArithmeticException {
 		super();
+		if (den == 0) {
+			throw new ArithmeticException();
+		}
 		this.num = num;
 		this.den = den;
 	}

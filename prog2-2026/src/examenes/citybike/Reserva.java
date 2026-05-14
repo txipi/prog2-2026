@@ -108,4 +108,18 @@ public class Reserva {
 				&& Objects.equals(inicio, other.inicio);
 	}
 	
+	public double calcularCoste() {
+		double total = 0;
+		if (this.getBicicleta() instanceof Electrica) {
+			if (cliente.getTipo().equals(TipoCliente.JOVEN)) {
+				total += 0.25;
+			} else if (cliente.getTipo().equals(TipoCliente.SENIOR)) {
+				total += 0.35;
+			} else {
+				total += 0.5;
+			}
+		}
+		return total;
+	}
+	
 }

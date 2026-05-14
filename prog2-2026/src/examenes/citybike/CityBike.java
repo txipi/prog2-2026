@@ -1,10 +1,12 @@
 package examenes.citybike;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Scanner;
 import java.util.TreeSet;
 
 public class CityBike {
@@ -85,11 +87,57 @@ public class CityBike {
 	
 	public Estacion buscarEstacionNombre(String nombre) {
 		// TAREA 2B
-		return null;
+		Estacion encontrada = null;
+		for (Estacion estacion : estaciones) {
+			if (estacion.getNombre().equals(nombre)) {
+				encontrada = estacion;
+				break;
+			}
+		}
+		return encontrada;
 	}
 
 	public void cargarBicletasCSV(String ruta) {
 		// TAREA 2C
+		try {
+			File f = new File(ruta);
+			Scanner sc = new Scanner(f);
+			while (sc.hasNextLine()) {
+				String linea = sc.nextLine();
+				String[] campos = linea.split(";");
+				try {
+					String codigo = campos[0];
+					String tipo = campos[1];
+					boolean operativa = Boolean.parseBoolean(campos[2]);
+					double bateria = Double.parseDouble(campos[3]);
+					String nombreEstacion = campos[4];
+					int capacidadEstacion = Integer.parseInt(campos[5]);
+					// Creamos la bicicleta
+					Bicicleta bicicleta;
+					if (tipo.equals("ELECTRICA")) {
+						bicicleta = new Electrica(operativa, bateria);
+					} else {
+						bicicleta = new Mecanica(operativa);
+					}
+					this.bicicletas.add(bicicleta);
+					// Creamos la estación
+					Estacion estacion = new Estacion(nombreEstacion, capacidadEstacion);
+					this.estaciones.add(estacion); // Como estaciones es un Set, no hay que preocuparse 
+												   // por si está repetida
+					// Añadimos la bicicleta dentro de la estacion
+					// esto puede funcionar, pero casi siempre falla: estacion.getBicicletas().add(bicicleta);
+					Estacion encontrada = buscarEstacionNombre(nombreEstacion);
+					encontrada.getBicicletas().add(bicicleta);
+				} catch (ArrayIndexOutOfBoundsException e) {
+					System.out.println("Error en la linea, faltan campos");
+				} catch (NumberFormatException e2) {
+					System.out.println("Formato numérico erróneo");
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+			System.out.println("Error al cargar CSV");
+		}
 	}
 	
 	public void simularReservas() {
@@ -97,13 +145,36 @@ public class CityBike {
 	}
 	
 	public HashMap<Cliente, Double> calcularCostesPorCliente() {
-		// TAREA 3B
-		return null;
+		HashMap<Cliente, Double> mapa = new HashMap<Cliente, Double>();
+		
+		for (Cliente cliente : clientes) {
+			double total = 0.0;
+			for (Reserva reserva : cliente.getReservas()) {
+				total += reserva.calcularCoste();
+			}
+			if (!mapa.containsKey(cliente)) {
+				mapa.put(cliente, total);
+			} else {
+				double valor = mapa.get(cliente);
+				mapa.put(cliente, valor + total);
+			}
+		}
+		
+		return mapa;
 	}
 	
 	public Cliente clienteMayorCoste(HashMap<Cliente, Double> mapa) {
 		// TAREA 3C
-		return null;
+		Cliente mayor_clave = null;
+		Double mayor_valor = 0.0;
+		for (Cliente clave : mapa.keySet()) {
+			double valor = mapa.get(clave);
+			if (valor > mayor_valor) {
+				mayor_clave = clave;
+				mayor_valor = valor;
+			}
+		}
+		return mayor_clave;
 	}
 	
 	public int recolocarBicicletas() {

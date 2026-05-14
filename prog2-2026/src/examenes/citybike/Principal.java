@@ -15,7 +15,7 @@ public class Principal {
 		System.out.println("Clientes cargados = " + ct.getClientes());
 		
 		// TAREA 2C
-		ct.cargarBicletasCSV("bicicletas.csv");
+		ct.cargarBicletasCSV("bicicletas-errores.csv");
 		System.out.println("Bicicletas cargadas = " + ct.getBicicletas());
 		System.out.println("Estaciones cargadas = " + ct.getEstaciones());
 				

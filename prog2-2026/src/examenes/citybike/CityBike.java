@@ -3,6 +3,7 @@ package examenes.citybike;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
@@ -142,6 +143,38 @@ public class CityBike {
 	
 	public void simularReservas() {
 		// TAREA 3A
+		for (int dia = 1; dia <= 30; dia++) {
+			for (int i = 0; i < 100; i++) {
+				// Elegir un cliente aleatorio (lista)
+				int alea = (int) (Math.random() * this.clientes.size());
+				Cliente cliente = this.clientes.get(alea);
+				
+				// Elegir una estación aleatoria (conjunto)
+				ArrayList<Estacion> listaEstaciones = new ArrayList<Estacion>(this.estaciones);
+				alea = (int) (Math.random() * listaEstaciones.size());
+				Estacion origen = listaEstaciones.get(alea);
+
+				// Fechas en función del día
+				LocalDate fecha = LocalDate.of(2025, 06, dia);
+				
+				// Coger la primera bici de esa estación
+				Bicicleta bicicleta = origen.getBicicletas().removeFirst();
+				
+				// Estación de destino aleatoria
+				alea = (int) (Math.random() * listaEstaciones.size());
+				Estacion destino = listaEstaciones.get(alea);
+
+				// Añadir la bici a la estación de destino
+				destino.getBicicletas().add(bicicleta);
+				
+				// Crear la reserva para ese cliente, esa bici y esa estación
+				Reserva reserva = new Reserva(cliente, bicicleta, fecha, fecha, origen, destino);
+		
+				// Añadir la reserva al cliente
+				cliente.getReservas().add(reserva);
+				
+			}			
+		}
 	}
 	
 	public HashMap<Cliente, Double> calcularCostesPorCliente() {
